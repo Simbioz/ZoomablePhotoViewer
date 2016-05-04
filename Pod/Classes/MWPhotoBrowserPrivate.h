@@ -102,6 +102,7 @@
 - (CGSize)contentSizeForPagingScrollView;
 - (CGPoint)contentOffsetForPageAtIndex:(NSUInteger)index;
 - (CGRect)frameForToolbarAtOrientation:(UIInterfaceOrientation)orientation;
+- (CGRect)frameForCaptionView:(MWCaptionView *)captionView atIndex:(NSUInteger)index;
 - (CGRect)frameForSelectedButton:(UIButton *)selectedButton atIndex:(NSUInteger)index;
 
 // Navigation
@@ -113,6 +114,13 @@
 // Grid
 - (void)showGrid:(BOOL)animated;
 - (void)hideGrid;
+
+// Controls
+- (void)cancelControlHiding;
+- (void)hideControlsAfterDelay;
+- (void)setControlsHidden:(BOOL)hidden animated:(BOOL)animated permanent:(BOOL)permanent;
+- (void)toggleControls;
+- (BOOL)areControlsHidden;
 
 // Data
 - (NSUInteger)numberOfPhotos;

@@ -357,6 +357,19 @@
 	return _photoImageView;
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+	[_photoBrowser cancelControlHiding];
+}
+
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
+    self.scrollEnabled = YES; // reset
+	[_photoBrowser cancelControlHiding];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+	[_photoBrowser hideControlsAfterDelay];
+}
+
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
     [self setNeedsLayout];
     [self layoutIfNeeded];
@@ -365,7 +378,7 @@
 #pragma mark - Tap Detection
 
 - (void)handleSingleTap:(CGPoint)touchPoint {
-	
+	[_photoBrowser performSelector:@selector(toggleControls) withObject:nil afterDelay:0.2];
 }
 
 - (void)handleDoubleTap:(CGPoint)touchPoint {
@@ -393,6 +406,10 @@
         [self zoomToRect:CGRectMake(touchPoint.x - xsize/2, touchPoint.y - ysize/2, xsize, ysize) animated:YES];
 
 	}
+	
+	// Delay controls
+	[_photoBrowser hideControlsAfterDelay];
+	
 }
 
 // Image View
